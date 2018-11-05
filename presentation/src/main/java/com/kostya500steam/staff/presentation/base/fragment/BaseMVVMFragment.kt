@@ -14,15 +14,16 @@ import com.kostya500steam.staff.presentation.base.BaseViewModel
 abstract class BaseMVVMFragment<VM : BaseViewModel<BaseRouter<BaseActivity>>,
         B : ViewDataBinding, R> : BaseFragment() {
 
-    protected open lateinit var viewModel : VM
+    protected open lateinit var viewModel: VM
     protected open lateinit var binding: B
-    protected open var router : R? = null
+    protected open var router: R? = null
 
-    protected abstract fun initViewModel() : VM
-    protected abstract fun initLayout() : Int
-    protected abstract fun initRouter() : R
+    protected abstract fun initViewModel(): VM
+    protected abstract fun initLayout(): Int
+    protected abstract fun initRouter(): R
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         viewModel = initViewModel()
         binding = DataBindingUtil.inflate(inflater, initLayout(), container, false)

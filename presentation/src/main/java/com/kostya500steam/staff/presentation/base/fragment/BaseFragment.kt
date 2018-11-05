@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseFragment : Fragment() {
+
     protected open val compositeDisposable by lazy {
         CompositeDisposable()
     }

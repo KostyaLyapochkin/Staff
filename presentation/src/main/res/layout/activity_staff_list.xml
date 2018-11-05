@@ -5,10 +5,11 @@
 
         <variable
             name="viewModel"
-            type="com.kostya500steam.staff.presentation.screens.StaffListViewModel" />
+            type="com.kostya500steam.staff.presentation.screens.stafflist.StaffListViewModel" />
     </data>
 
     <LinearLayout
+        android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -63,12 +64,13 @@
                 android:text="До"
                 android:textAllCaps="false" />
 
-
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:adapter="@{viewModel.adapter}"
             android:layout_weight="15" />
 
     </LinearLayout>
