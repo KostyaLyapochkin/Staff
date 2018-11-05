@@ -1,19 +1,16 @@
 package com.kostya500steam.staff.presentation.screens.stafflist
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.helper.ItemTouchHelper
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import com.kostya500steam.staff.R
 import com.kostya500steam.staff.databinding.ActivityStaffListBinding
 import com.kostya500steam.staff.presentation.base.BaseMVVMActivity
-import com.kostya500steam.staff.presentation.base.recyclerview.ItemTouchHelperAdapter
-import com.kostya500steam.staff.presentation.base.recyclerview.SimpleItemTouchHelperCallback
-import com.kostya500steam.staff.presentation.screens.stafflist.list.SwipeController
-import kotlinx.coroutines.*
+import com.kostya500steam.staff.presentation.screens.stafflist.list.SwipeHelper
 import java.util.*
 
 class StaffListActivity : BaseMVVMActivity<StaffListViewModel,
@@ -45,13 +42,28 @@ class StaffListActivity : BaseMVVMActivity<StaffListViewModel,
 //        val callback = SimpleItemTouchHelperCallback(viewModel.adapter.get()!!)
 //        val touchHelper = ItemTouchHelper(callback)
 //        touchHelper.attachToRecyclerView(binding.recyclerView)
-        val callback = SwipeController({
-            Log.e("AAA", "Edit = $it")
-        }, {
-            Log.e("AAA", "Remove = $it")
-        })
-        val touchHelper = ItemTouchHelper(callback)
-        touchHelper.attachToRecyclerView(binding.recyclerView)
+
+
+//        val callback = SwipeController({
+//            Log.e("AAA", "Edit = $it")
+//        }, {
+//            Log.e("AAA", "Remove = $it")
+//            viewModel.adapter.get()!!.onItemDismiss(it)
+//        })
+//        val touchHelper = ItemTouchHelper(callback)
+//        touchHelper.attachToRecyclerView(binding.recyclerView)
+
+        val swipeHelper = object : SwipeHelper(this, binding.recyclerView) {
+
+            override fun instantiateUnderlayButton(viewHolder: RecyclerView.ViewHolder?, underlayButtons: MutableList<UnderlayButton>?) {
+                underlayButtons!!.add(SwipeHelper.UnderlayButton("Delete",
+                        0,
+                        Color.parseColor("#FF3C30"),
+                        SwipeHelper.UnderlayButtonClickListener {
+                            Log.e("AAA", "DELETE = $it")
+                        }))
+            }
+        }
     }
 
     private val beforeDate = DatePickerDialog.OnDateSetListener { _, year, month, day ->
